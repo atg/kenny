@@ -4,13 +4,17 @@ struct Interval {
     int i;
     Interval(int _i) : i(_i) { }
     
-    bool isMinor() { int j = sanemod(i, 12); return j == MinorSecond || j == MinorThird || j == MinorSixth || j == MinorSeventh; }
-    bool isMajor() { int j = sanemod(i, 12); return j == MajorSecond || j == MajorThird || j == MajorSixth || j == MajorSeventh; }
-    bool isPerfect() { int j = sanemod(i, 12); return j == Unison || j == Fourth || j == Fifth; }
+    bool isMinor();
+    bool isMajor();
+    bool isPerfect();
     
     // Kind of breaks down here, should it be "perfect"?
-    bool isMinor() { return sanemod(i, 12) == Tritone; }
-    bool isOctaval() { return sanemod(i, 12) == Unison; }
+    bool isTritone();
+    bool isOctaval();
+    
+    bool operator == (Interval j) const {
+        return i == j.i;
+    }
 };
 
 const Interval Unison = 0;

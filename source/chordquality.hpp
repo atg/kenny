@@ -23,8 +23,8 @@ struct Qualities {
     
     Qualities() {
         memset(this, 0, sizeof(Qualities));
-        third = Included;
-        fifth = Included;
+        third = Quality::Included;
+        fifth = Quality::Included;
     }
     
     static Qualities parse(std::string str) {
@@ -33,7 +33,7 @@ struct Qualities {
         bool majorSeven = false;
         Quality accidental = Quality::Included;
         const char* s = str.c_str();
-        for (char* it = s, et = s + str.size(); it != et; it++) {
+        for (const char *it = s, *et = s + str.size(); it != et; it++) {
             // -        (affects 3)
             // o        (affects 3 5 6)
             // 2        (affects 2)
@@ -45,8 +45,10 @@ struct Qualities {
             // [b#]?11  (affects 11)
             // [b#]?13  (affects 13)
             // sus      (affects 4)
-            // alt      (affects )
+            // alt      (affects - fuck it) https://en.wikipedia.org/wiki/Altered_chord#Jazz
             // susadd3  (affects 3 4)
+            
+            // TODO: Coax iTunes into letting me buy that iReal Book IAP so that I can find out what the fuck a "-^9" chord is and what it does for alt chords
             
             // Minor third
             if (*it == '-')
@@ -83,6 +85,9 @@ struct Qualities {
             else if (it - s >= 4 && strncmp("add5", it - 4, 4) == 0)
                 q.fifth = Quality::Included;
             
+            // #5
+            if (*it == '+')
+                q.fifth = Quality::Sharp;
             
             // Sixth chords
             if (*it == '6') {
@@ -106,11 +111,11 @@ struct Qualities {
             
             // Accidentials
             if (*it == '#')
-                accidental == Quality::Sharp;
+                accidental = Quality::Sharp;
             else if (*it == 'b')
-                accidental == Quality::Flat;
+                accidental = Quality::Flat;
             else
-                accidental == Quality::Included;
+                accidental = Quality::Included;
         }
         
         return q;

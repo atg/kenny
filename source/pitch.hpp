@@ -1,4 +1,4 @@
-enum PitchClass {
+enum PitchClass : int {
     C = 0,
     Cshp = 1,
     
@@ -28,6 +28,19 @@ enum PitchClass {
 struct Note {
     PitchClass pitch;
     
+    Note(int p) : pitch(PitchClass(p)) { }
     Note(PitchClass p) : pitch(p) { }
-    operator PitchClass () { return p; }
+    operator PitchClass () { return pitch; }
+    
+    Note flat() { return Note(sanemod(int(pitch) - 1, 12)); }
+    Note sharp() { return Note(sanemod(int(pitch) + 1, 12)); }
+    
+    Note transpose(Note oldroot, Note newroot) {
+        int p = pitch;
+        int o = oldroot;
+        int n = newroot;
+        
+        // If oldroot is C and newroot is D and pitch is E, then we want to add 2 to the pitch 
+        return Note(sanemod(p + (n - o), 12));
+    }
 };
