@@ -36,6 +36,31 @@ Scale Scale::majorize(int toneidx) {
     return altered;
 }
 
+Scale Scale::rotate(int amount) {
+    if (amount >= tones.size()) amount = sanemod(amount, tones.size());
+    if (amount == 0) return *this;
+    
+    // Take amount from the front, and stick it on the back, e.g. for a phrygian
+    // C D E F G A B -> [C D] [E F G A B] -> [E F G A B C D]
+    Scale altered = *this;
+    
+    // Get the first `amount` notes and put them in the buffer
+    list<Note> buffer;
+    for (int i = 0; i < amount; i++) {
+        buffer.push_back(altered.tones[i]);
+    }
+    
+    // Drop the first `amount` notes from the scale
+    altered.tones.erase(altered.tones.begin(), altered.tones.begin() + amount);
+    
+    // Append the buffer to the end of the scale
+    for (Note n : buffer) {
+        altered.tones.push_back(n);
+    }
+    
+    return altered;
+}
+
 void Scale::print() {
     const char* sep = "";
     printf("[");

@@ -10,6 +10,10 @@ int main() {
     Scale s = Scale::major(Eb);//Scale::locrian(D).majorize(3);
     s.print();
     printf("\n");
+
+    Scale s2 = Scale::major(C).rotate(2);//Scale::locrian(D).majorize(3);
+    s2.print();
+    printf("\n");
     
     for (std::pair<std::string, Qualities> kq : Qualities::conventionalChords()) {
         printf("  %s: ", kq.first.c_str());
