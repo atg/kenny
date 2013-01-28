@@ -28,6 +28,27 @@ Chord Chord::build(Scale scale, Qualities q) {
     return ch;
 }
 
+static uint64_t mask_fromNoteIndex(int i) {
+    return 1 << i;
+}
+
+uint64_t Chord::bitmask() {
+    // The rule is that the root is always the lowest note
+    uint64_t mask = 0;
+    
+    int mini = -1;
+    for (Note note : tones) {
+        int i = note.pitch;
+        while (i <= mini)
+            i += 12;
+        mini = i;
+        
+        mask |= mask_fromNoteIndex(i);
+    }
+    
+    return mask;
+}
+
 void Chord::print() {
     const char* sep = "";
     printf("{");

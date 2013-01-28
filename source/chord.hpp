@@ -1,3 +1,5 @@
+#import <stdint.h>
+
 #import "chordquality.hpp"
 #import "scale.hpp"
 
@@ -12,4 +14,6 @@ struct Chord {
     Chord() : tones(), scale(Scale::major(C)) { }
     
     void print();
+    
+    uint64_t bitmask();
 };
