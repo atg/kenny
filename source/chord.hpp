@@ -10,4 +10,6 @@ struct Chord {
     static Chord build(Scale scale, Qualities q);
     
     Chord() : tones(), scale(Scale::major(C)) { }
+    
+    void print();
 };

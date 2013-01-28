@@ -7,6 +7,14 @@
 #import "util.hpp"
 
 int main() {
-    Scale::locrian(D).majorize(3).print();
+    Scale s = Scale::major(Eb);//Scale::locrian(D).majorize(3);
+    s.print();
     printf("\n");
+    
+    for (std::pair<std::string, Qualities> kq : Qualities::conventionalChords()) {
+        printf("  %s: ", kq.first.c_str());
+        Chord ch = Chord::build(s, kq.second);
+        ch.print();
+        printf("\n");
+    }
 }

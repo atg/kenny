@@ -38,10 +38,12 @@ Scale Scale::majorize(int toneidx) {
 
 void Scale::print() {
     const char* sep = "";
+    printf("[");
     for (Note n : tones) {
         printf("%s", sep);
         sep = ", ";
         
         n.print();
     }
+    printf("]");
 }

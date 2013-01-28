@@ -12,6 +12,8 @@ Chord Chord::build(Scale scale, Qualities q) {
         ch.tones.push_back(Note(sanemod(t, 12))); \
     } while (0)
     
+    ch.tones.push_back(scale.tones[0]);
+    
     add_note(2, second);
     add_note(3, third);
     add_note(4, fourth);
@@ -24,4 +26,16 @@ Chord Chord::build(Scale scale, Qualities q) {
     add_note(6, thirteenth);
     
     return ch;
+}
+
+void Chord::print() {
+    const char* sep = "";
+    printf("{");
+    for (Note n : tones) {
+        printf("%s", sep);
+        sep = ", ";
+        
+        n.print();
+    }
+    printf("}");
 }
