@@ -19,4 +19,6 @@ struct Scale {
     Scale reroot(Note newroot);
     Scale minorize(int toneidx);
     Scale majorize(int toneidx);
+    
+    void print();
 };

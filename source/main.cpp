@@ -7,5 +7,6 @@
 #import "util.hpp"
 
 int main() {
-    
+    Scale::locrian(D).majorize(3).print();
+    printf("\n");
 }

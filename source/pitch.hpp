@@ -1,3 +1,5 @@
+#import "util.hpp"
+
 enum PitchClass : int {
     C = 0,
     Cshp = 1,
@@ -43,4 +45,6 @@ struct Note {
         // If oldroot is C and newroot is D and pitch is E, then we want to add 2 to the pitch 
         return Note(sanemod(p + (n - o), 12));
     }
+    
+    void print();
 };
